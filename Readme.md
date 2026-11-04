@@ -73,7 +73,11 @@ Two simple measures, half of the score each:
 ## Is it really secure?
 
 Honest answer: **the security comes from `secrets`, not from Word.** The chaos (which piece gets cut, where, with what) is driven by Python's `random`, which is not a safe source. So the document makes the idea fun and the score interesting, while `secrets.token_bytes` is what makes each password unpredictable. Characters are also picked without bias (rejection sampling instead of a plain modulo).
+## What it looks like
 
+![Before and after the chaos party](examples/before_after.png)
+
+Left: the original template. Right: after the chaos party. Images land in the middle of sentences, random characters break words, and everything below gets pushed down the page.
 ## Tests
 
 ```bash
