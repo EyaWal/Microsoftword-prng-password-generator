@@ -149,9 +149,10 @@ def generate_super_secure_passwords(doc_paths, image_paths, output_doc_path,
     results = []
 
     for i in range(n_passwords):
-        # Merge all the source documents (text only), fresh copy for each password
-        doc = docx.Document()
-        for path in doc_paths:
+        # Fresh copy of the first document for each password: titles, lists, tables
+        # and formatting are kept. The text of the other documents is added at the end.
+        doc = docx.Document(doc_paths[0])
+        for path in doc_paths[1:]:
             for p in docx.Document(path).paragraphs:
                 doc.add_paragraph(p.text)
         if not _text_runs(doc):

@@ -34,7 +34,7 @@ python password_generator.py --docs template.docx template2.docx \
   --images sample1.jpg sample2.png --n_passwords 5 --length 16 --verbose
 ```
 
-- `--docs`: list of .docx files to use as the base (their text is merged)
+- `--docs`: list of .docx files. The first one is the base (formatting, lists and tables are kept), the text of the others is added at the end
 - `--images`: list of images for mutations (optional)
 - `--output`: name of the mutated Word file, last one is kept (default: `mutated.docx`)
 - `--n_passwords`: number of passwords to generate

@@ -87,3 +87,21 @@ def test_end_to_end(source_path, image, tmp_path):
     assert all(len(r["password"]) == 20 for r in results)
     assert len({r["password"] for r in results}) == 3
     docx.Document(output)  # the mutated document still opens
+
+
+def test_tables_and_formatting_are_kept(tmp_path):
+    path = tmp_path / "with_table.docx"
+    d = docx.Document()
+    d.add_paragraph("A title before the table.")
+    italic = d.add_paragraph().add_run("An italic paragraph to cut.")
+    italic.italic = True
+    table = d.add_table(rows=2, cols=2)
+    table.cell(0, 0).text = "cell"
+    d.save(path)
+
+    output = str(tmp_path / "mutated.docx")
+    generate_super_secure_passwords([str(path)], [], output, n_passwords=1)
+
+    result = docx.Document(output)
+    assert len(result.tables) == 1
+    assert result.tables[0].cell(0, 0).text == "cell"
